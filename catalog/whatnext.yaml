@@ -1,0 +1,23 @@
+name: whatnext
+repo: https://github.com/harrymove-ctrl/whatnext
+sha: REPLACE_WITH_40_CHAR_COMMIT_SHA
+title: WhatNext
+description: "Memory-grounded prompt prediction, live draft autocomplete, human workflow movement learning, and bounded Clone Mode for Hermes Desktop, Dashboard, and CLI. Disclosure: reads active profile USER.md, MEMORY.md, SOUL.md, and session turns via SessionDB (with secret-pattern scrubbing) to personalize suggestions; stores predictions, funnel metrics, and human-only intent transitions in $HERMES_HOME/plugin-data/whatnext/whatnext.db; calls host ctx.llm on auxiliary.whatnext by default, or https://api.clone.is when CLONE_API_KEY is configured through Hermes secrets; no shell commands, no telemetry, no self-updater."
+maintainer: harrymove-ctrl
+tier: community
+category: desktop
+requires_hermes: ">=0.21.5"
+docs_url: https://github.com/harrymove-ctrl/whatnext#readme
+version: "0.1.0"
+readme: true
+platforms: []
+capabilities:
+  provides_tools:
+    - whatnext_predict
+    - whatnext_analytics
+  provides_hooks:
+    - on_session_start
+    - pre_llm_call
+    - post_llm_call
+  provides_middleware: []
+  requires_env: []

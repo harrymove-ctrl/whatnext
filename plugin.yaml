@@ -1,0 +1,84 @@
+name: whatnext
+version: 0.1.0
+manifest_version: 2
+api_version: 1
+description: Memory-grounded prompt prediction, live draft autocomplete, movement learning, and bounded Clone Mode for Hermes Agent.
+author: harrymove-ctrl
+license: MIT
+homepage: https://github.com/harrymove-ctrl/whatnext
+requires_hermes: ">=0.21.5"
+tags:
+  - desktop
+  - composer
+  - memory
+  - suggestions
+  - autocomplete
+  - productivity
+provides_hooks:
+  - on_session_start
+  - pre_llm_call
+  - post_llm_call
+provides_tools:
+  - whatnext_predict
+  - whatnext_analytics
+provides_middleware: []
+requires_env: []
+config_schema:
+  enabled:
+    type: bool
+    default: true
+    description: "Enable prompt suggestions and movement predictions across Hermes surfaces"
+  backend:
+    type: str
+    default: "auto"
+    choices:
+      - "auto"
+      - "hermes_llm"
+      - "clone_api"
+      - "local_heuristics"
+    description: "Prediction engine: auto uses Clone API when CLONE_API_KEY is set, otherwise active Hermes LLM"
+  enable_draft_completion:
+    type: bool
+    default: true
+    description: "Predict live inline continuations while typing a draft in Hermes Desktop (complete_draft mode)"
+  enable_empty_chat_starters:
+    type: bool
+    default: true
+    description: "Suggest personalized starter prompts on brand-new empty chats from USER.md, MEMORY.md, and workspace state"
+  enable_memory_personalization:
+    type: bool
+    default: true
+    description: "Condition predictions on Hermes USER.md, MEMORY.md, SOUL.md, and human-authored movement history"
+  feedback_enabled:
+    type: bool
+    default: true
+    description: "Learn workflow movement transitions from human-authored prompts and suppress dismissed suggestions"
+  max_context_messages:
+    type: int
+    default: 12
+    description: "Maximum recent conversation messages included in prediction context (2 to 30)"
+  candidate_count:
+    type: int
+    default: 3
+    description: "Number of ranked next-move candidates generated per empty-draft prediction (1 to 3)"
+  cooldown_seconds:
+    type: int
+    default: 2
+    description: "Minimum seconds between automatic post-turn background predictions per session"
+  clone_mode_max_turns:
+    type: int
+    default: 3
+    description: "Default turn cap when the user explicitly starts bounded Clone Mode in Desktop (1 to 10)"
+  clone_mode_max_seconds:
+    type: int
+    default: 300
+    description: "Default duration cap in seconds for bounded Clone Mode in Desktop (30 to 3600)"
+  clone_api_base_url:
+    type: str
+    default: "https://api.clone.is"
+    description: "Base URL for optional Clone Labs Prompt Prediction API"
+  clone_api_key:
+    type: secret
+    env: CLONE_API_KEY
+    required: false
+    description: "Optional Clone Labs server app key (stored in profile credentials, never exposed to renderer)"

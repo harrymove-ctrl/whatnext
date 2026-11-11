@@ -1,0 +1,13 @@
+{
+  "name": "whatnext",
+  "label": "WhatNext",
+  "description": "Memory-grounded prompt prediction, live draft autocomplete, movement graph, and composer evaluation metrics",
+  "icon": "Sparkles",
+  "version": "0.1.0",
+  "tab": {
+    "path": "/whatnext",
+    "position": "after:skills"
+  },
+  "entry": "bundle.js",
+  "api": "plugin_api.py"
+}
